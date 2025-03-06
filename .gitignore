@@ -169,3 +169,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Data
+Data/*
+*.pkl
+FSoLS-24-v5_*
+FSoLS-2*
