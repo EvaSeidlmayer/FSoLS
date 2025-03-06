@@ -1,0 +1,8 @@
+quart
+joblib
+transformers
+torch
+aiohttp
+gunicorn
+scikit-learn
+flask-babel

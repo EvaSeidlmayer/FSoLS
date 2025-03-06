@@ -172,6 +172,7 @@ cython_debug/
 
 # Data
 Data/*
+static/*
 *.pkl
 FSoLS-24-v5_*
 FSoLS-2*
