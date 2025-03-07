@@ -5,4 +5,7 @@ torch
 aiohttp
 gunicorn
 scikit-learn
-flask-babel
+quart_babel
+quart_session
+uvicorn
+redis
