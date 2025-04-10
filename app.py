@@ -18,8 +18,12 @@ from quart_babel import Babel, _
 from quart_session import Session
 import os
 import redis.asyncio as redis
+import logging
 
 
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 app = Quart(__name__)
 app.secret_key = "perasperaadastra"
@@ -78,14 +82,14 @@ async def language():
 @app.route('/set_language/<lang>')
 async def set_language(lang):
     try:
-        logger.info(f'Attempting to set languge to: {lang}')
-        if lang in LANGUAGE:
+        logger.info(f'Attempting to set language to: {lang}')
+        if lang in LANGUAGES:
             session['language'] = lang
             logger.info(f'Language set to: {lang}')
         else:
-            logger.warning(f'Invalid language')
+            logger.warning(f'Invalid language: {lang}')
         return redirect(url_for('home'))
-    except EXCEPTION as e:
+    except Exception as e:
         logger.error(f'Error setting language: {e}')
         print('language:', lang)
         return "Internal Server Error", 500
