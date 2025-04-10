@@ -1,1 +1,2 @@
-# App to provide Four Shades of Life Science (FSoLS) service 
+# FSoLS
+Four Shades of Life Sciences web service

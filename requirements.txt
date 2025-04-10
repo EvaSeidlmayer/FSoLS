@@ -6,6 +6,6 @@ aiohttp
 gunicorn
 scikit-learn
 quart_babel
-quart_session
 uvicorn
+quart_session
 redis
