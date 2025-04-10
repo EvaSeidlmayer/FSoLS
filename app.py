@@ -19,6 +19,7 @@ from quart_session import Session
 import os
 import redis.asyncio as redis
 import logging
+import  redis
 
 
 # Configure logging
@@ -54,6 +55,23 @@ LANGUAGES = ['en', 'de']
 babel = Babel(app)
 
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = os.path.join(os.path.dirname(__file__), 'translations')
+
+
+async def init_redis_pool():
+    try:
+        # Create a Redis client to connect to the Redis server
+        redis_client = redis.Redis(host='localhost', port=6379, db=0)
+
+        # Try to ping the Redis server to verify the connection
+        redis_client.ping()  # This sends a PING command to Redis
+        logger.info("Redis connection established successfully.")
+
+        # If no error occurs, set the Redis client in the app configuration
+        app.config['SESSION_REDIS'] = redis_client
+    except redis.ConnectionError as e:
+        # If Redis connection fails, log an error
+        logger.error(f"Redis connection failed: {e}")
+        raise Exception("Failed to connect to Redis server.")
 
 
 def get_locale():
