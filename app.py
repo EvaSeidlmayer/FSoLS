@@ -148,7 +148,7 @@ async def CallWikifier(text, lang="en", threshold=0.8):
 
 # Load the trained classifier from the file
 RF_classifier = joblib.load(
-    'vol/2025-01-06_FSoLF-25-v5_random_forest_classifier.pkl')
+    '/vol/2025-01-06_FSoLF-25-v5_random_forest_classifier.pkl')
 
 # Load the vectorizer from the file
 RF_vectorizer = joblib.load(
