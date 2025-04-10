@@ -148,27 +148,27 @@ async def CallWikifier(text, lang="en", threshold=0.8):
 
 # Load the trained classifier from the file
 RF_classifier = joblib.load(
-    'static/2025-01-06_FSoLF-25-v5_random_forest_classifier.pkl')
+    'vol/2025-01-06_FSoLF-25-v5_random_forest_classifier.pkl')
 
 # Load the vectorizer from the file
 RF_vectorizer = joblib.load(
-    'static/2025-01-06_FSoLF-25-v5_vectorizer.pkl')
+    'vol/2025-01-06_FSoLF-25-v5_vectorizer.pkl')
 
 SVM_classifier = joblib.load(
-    'static/2025-01-10_FSoLF-25-v5_SVM_classifier.pkl')
+    'vol/2025-01-10_FSoLF-25-v5_SVM_classifier.pkl')
 SVM_vectorizer = joblib.load(
-    'static/2025-01-10_FSoLF-25-v5_SVM_vectorizer.pkl')
+    'vol/2025-01-10_FSoLF-25-v5_SVM_vectorizer.pkl')
 
 LRG_classifier = joblib.load(
-    'static/2025-01-10_FSoLF-25-v5_LRG_classifier.pkl')
+    'vol/2025-01-10_FSoLF-25-v5_LRG_classifier.pkl')
 LRG_vectorizer = joblib.load(
-    'static/2025-01-10_FSoLF-25-v5_LRG_vectorizer.pkl')
+    'vol/2025-01-10_FSoLF-25-v5_LRG_vectorizer.pkl')
 Bertbase_model = AutoModelForSequenceClassification.from_pretrained(
-    'static/FSoLS-24-v5_Bertbase_e1_lr3e-5_mlclass', num_labels=4)
+    'vol/FSoLS-24-v5_Bertbase_e1_lr3e-5_mlclass', num_labels=4)
 Scibert_model = AutoModelForSequenceClassification.from_pretrained(
-    'static/FSoLS-24-v5_SciBert_e3_lr3e-5_mlclass', num_labels=4)
+    'vol/FSoLS-24-v5_SciBert_e3_lr3e-5_mlclass', num_labels=4)
 SPECTER_model = AutoModelForSequenceClassification.from_pretrained(
-    'static/FSoLS-24-v5_Specter_e3_lr3e-5_mlclass', num_labels=4)
+    'vol/FSoLS-24-v5_Specter_e3_lr3e-5_mlclass', num_labels=4)
 bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 
