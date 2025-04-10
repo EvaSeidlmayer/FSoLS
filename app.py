@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 app = Quart(__name__)
 app.secret_key = "perasperaadastra"
-
+print('the app is running')
 # config session
 app.config['SESSION_TYPE'] = 'redis'
 app.config['SESSION_PERMANENT'] = False
