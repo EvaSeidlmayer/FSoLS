@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 app = Quart(__name__)
 app.secret_key = "perasperaadastra"
-print('the app is running')
+
 # config session
 app.config['SESSION_TYPE'] = 'redis'
 app.config['SESSION_PERMANENT'] = False
@@ -65,7 +65,7 @@ async def init_redis_pool():
         # Try to ping the Redis server to verify the connection
         redis_client.ping()  # This sends a PING command to Redis
         logger.info("Redis connection established successfully.")
-
+        print('the app is running')
         # If no error occurs, set the Redis client in the app configuration
         app.config['SESSION_REDIS'] = redis_client
     except redis.ConnectionError as e:
