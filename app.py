@@ -19,8 +19,7 @@ from quart_session import Session
 import os
 import redis.asyncio as redis
 import logging
-import  redis
-
+import argparse
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -39,9 +38,6 @@ app.config['SESSION_REDIS'] = redis.Redis(host='localhost', port=6379, db=0)
 #app.config['SESSION_REDIS'] = 'redis://localhost:5000'  # Adjust the Redis URL as needed
 
 
-async def init_redis_pool():
-    redis_client = redis.Redis(host='localhost', port=6379, db=0)
-    app.config['SESSION_REDIS'] = redis_client
 
 Session(app)
 
@@ -63,7 +59,7 @@ async def init_redis_pool():
         redis_client = redis.Redis(host='localhost', port=6379, db=0)
 
         # Try to ping the Redis server to verify the connection
-        redis_client.ping()  # This sends a PING command to Redis
+        await redis_client.ping()  # This sends a PING command to Redis
         logger.info("Redis connection established successfully.")
         print('the app is running')
         # If no error occurs, set the Redis client in the app configuration
@@ -170,30 +166,25 @@ async def CallWikifier(text, lang="en", threshold=0.8):
             response = await resp.json()
             return response.get("annotations", [])
 
+parser = argparse.ArgumentParser()
+parser.add_argument("path")
+args = parser.parse_args()
+path = args.path
 
 # Load the trained classifier from the file
-RF_classifier = joblib.load(
-    '/vol/2025-01-06_FSoLF-25-v5_random_forest_classifier.pkl')
+RF_classifier = joblib.load(f'{path}/2025-01-06_FSoLF-25-v5_random_forest_classifier.pkl')
 
 # Load the vectorizer from the file
-RF_vectorizer = joblib.load(
-    '/vol/2025-01-06_FSoLF-25-v5_vectorizer.pkl')
+RF_vectorizer = joblib.load(f'{path}/2025-01-06_FSoLF-25-v5_vectorizer.pkl')
 
-SVM_classifier = joblib.load(
-    '/vol/2025-01-10_FSoLF-25-v5_SVM_classifier.pkl')
-SVM_vectorizer = joblib.load(
-    '/vol/2025-01-10_FSoLF-25-v5_SVM_vectorizer.pkl')
+SVM_classifier = joblib.load(f'{path}/2025-01-10_FSoLF-25-v5_SVM_classifier.pkl')
+SVM_vectorizer = joblib.load(f'{path}/2025-01-10_FSoLF-25-v5_SVM_vectorizer.pkl')
 
-LRG_classifier = joblib.load(
-    '/vol/2025-01-10_FSoLF-25-v5_LRG_classifier.pkl')
-LRG_vectorizer = joblib.load(
-    '/vol/2025-01-10_FSoLF-25-v5_LRG_vectorizer.pkl')
-Bertbase_model = AutoModelForSequenceClassification.from_pretrained(
-    '/vol/FSoLS-24-v5_Bertbase_e1_lr3e-5_mlclass', num_labels=4)
-Scibert_model = AutoModelForSequenceClassification.from_pretrained(
-    '/vol/FSoLS-24-v5_SciBert_e3_lr3e-5_mlclass', num_labels=4)
-SPECTER_model = AutoModelForSequenceClassification.from_pretrained(
-    '/vol/FSoLS-24-v5_Specter_e3_lr3e-5_mlclass', num_labels=4)
+LRG_classifier = joblib.load(f'{path}/2025-01-10_FSoLF-25-v5_LRG_classifier.pkl')
+LRG_vectorizer = joblib.load(f'{path}/2025-01-10_FSoLF-25-v5_LRG_vectorizer.pkl')
+Bertbase_model = AutoModelForSequenceClassification.from_pretrained(f'{path}/FSoLS-24-v5_Bertbase_e1_lr3e-5_mlclass', num_labels=4)
+Scibert_model = AutoModelForSequenceClassification.from_pretrained(f'{path}/FSoLS-24-v5_SciBert_e3_lr3e-5_mlclass', num_labels=4)
+SPECTER_model = AutoModelForSequenceClassification.from_pretrained(f'{path}/FSoLS-24-v5_Specter_e3_lr3e-5_mlclass', num_labels=4)
 bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 
@@ -259,5 +250,5 @@ async def input():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, )
 
