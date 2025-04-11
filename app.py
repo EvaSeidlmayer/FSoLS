@@ -104,6 +104,12 @@ def index():
 async def language():
     return await render_template('language.html')  # Language selection page
 
+@app.before_request
+async def log_language():
+    current_language = session.get('language', 'default not set')
+    logger.info(f"Current language in session: {current_language}")
+
+
 @app.route('/set_language/<lang>')
 async def set_language(lang):
     try:
