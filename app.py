@@ -45,7 +45,9 @@ path = os.getenv("APP_DATA_PATH", "./static" if env == "development" else "/vol"
 
 print(f"Running in {env} mode. Data path: {path}")
 
-
+# Print the environment variables for debugging purposes
+print(f"APP_ENV: {os.getenv('APP_ENV')}")
+print(f"APP_DATA_PATH: {os.getenv('APP_DATA_PATH')}")
 
 Session(app)
 
