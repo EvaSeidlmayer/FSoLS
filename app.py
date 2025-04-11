@@ -38,11 +38,20 @@ app.config['SESSION_REDIS'] = redis.Redis(host='localhost', port=6379, db=0)
 if os.path.exists(".env"):
     load_dotenv()
 
+base_dir = os.path.dirname(os.path.abspath(__file__))
+app = Quart(
+    __name__,
+    static_folder=os.path.join(base_dir, "static"),
+    template_folder=os.path.join(base_dir, "templates")
+)
+
 # Read environment variables
 env = os.getenv("APP_ENV", "development")
 path = os.getenv("APP_DATA_PATH", "./static" if env == "development" else "/vol")
 
 print(f"Running in {env} mode. Data path: {path}")
+
+
 
 Session(app)
 
