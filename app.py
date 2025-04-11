@@ -112,14 +112,17 @@ async def log_language():
 
 @app.route('/set_language/<lang>')
 async def set_language(lang):
+    print(f"Session language: {session.get('language')}")
     try:
         logger.info(f'Attempting to set language to: {lang}')
         if lang in LANGUAGES:
             session['language'] = lang
             logger.info(f'Language set to: {lang}')
+            print(f"Session language: {session.get('language')}")
+            return redirect(url_for('home', _external=True, lang=lang))
         else:
             logger.warning(f'Invalid language: {lang}')
-        return redirect(url_for('home'))
+            return redirect(url_for('home'))
     except Exception as e:
         logger.error(f'Error setting language: {e}')
         print('language:', lang)
