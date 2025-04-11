@@ -19,7 +19,7 @@ from quart_session import Session
 import os
 import redis.asyncio as redis
 import logging
-import argparse
+import dotenv import load_dotenv
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -35,9 +35,14 @@ app.config['SESSION_USE_SIGNER'] = True
 app.config['SESSION_KEY_PREFIX'] = 'session:'
 app.config['SESSION_REDIS'] = redis.Redis(host='localhost', port=6379, db=0)
 
-#app.config['SESSION_REDIS'] = 'redis://localhost:5000'  # Adjust the Redis URL as needed
+if os.path.exists(".env"):
+    load_dotenv()
 
+# Read environment variables
+env = os.getenv("APP_ENV", "development")
+path = os.getenv("APP_DATA_PATH", "./static" if env == "development" else "/vol")
 
+print(f"Running in {env} mode. Data path: {path}")
 
 Session(app)
 
@@ -166,10 +171,7 @@ async def CallWikifier(text, lang="en", threshold=0.8):
             response = await resp.json()
             return response.get("annotations", [])
 
-parser = argparse.ArgumentParser()
-parser.add_argument("path")
-args = parser.parse_args()
-path = args.path
+
 
 # Load the trained classifier from the file
 RF_classifier = joblib.load(f'{path}/2025-01-06_FSoLF-25-v5_random_forest_classifier.pkl')
