@@ -19,7 +19,7 @@ from quart_session import Session
 import os
 import redis.asyncio as redis
 import logging
-import dotenv import load_dotenv
+from dotenv import load_dotenv
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
