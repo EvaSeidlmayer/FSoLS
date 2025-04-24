@@ -6,25 +6,23 @@
     <title> {{ _('NLP strategies to handle disinformation') }}</title>
     <style>
         body {
-            background-color: #0EA2AB;
-            font-family: Arial, sans-serif;
+            background-color: #FFFFFF;
+            font-family: Tablet Gotic Narrow, sans-serif;
             margin:100px;
             padding:0;
         }
         h1, h2 {
             color: #333;
         }
-
         .container {
-            display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
             margin: 15px;
         }
         .form-section {
-            width: 45%;
-            padding: 20px;
+            width: 80%;
+            padding: 10px;
             background-color: #f0f0f0;
-            border-radius: 10px;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-height: 700px; /* Adjust the height as needed */
             overflow-y: auto; /* Add scrollbar if content overflows */
@@ -46,272 +44,260 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        #chart-container-1, #chart-container-2, #chart-container-3 {
-            width: 90%;
-            max-width: 800px;
-            background-color: #f5f5f5;
-            margin: 0 auto; /* Center the chart */
+        .horizontal-flex {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
         }
-       #chart-container-1 canvas {
-        display: none; /* Hide canvas if it's not being used */
+        .chart-row {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              gap: 20px;
+              flex-wrap: wrap;
+              margin-top: 30px;
+            }
+        .chart-row > div {
+              flex: 1 1 48%;
+              padding: 10px;
+              box-sizing: border-box;
         }
-       #chart-container-2 canvas {
-        display: none; /* Hide canvas if it's not being used */
+        .chart-container {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction:row;
+            gap: 20px;
+                  }
+                chart-container {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap; /* prevent wrapping */
+          gap: 20px; /* optional spacing */
         }
-        #chart-container-2 p {
-    margin: 0; /* Remove default margins */
-    padding: 0; /* Remove extra padding */
-}
-        #chart-container-3 canvas {
-        display: none; /* Hide canvas if it's not being used */
+        .chart-container > div {
+              padding: 5px;
+              box-sizing: border-box;
         }
+                .chart-container > .chart-container-1,
+        .chart-container > .chart-container-2 {
+          flex: unset; /* or just remove this rule entirely */
+        }
+            .chart-container-1 {
+        flex: 0 0 80%;
+        background-color: #f5f5f5;
+        padding: 10px;
+        }
+        .chart-container-2 {
+        flex: 0 0 20%;
+        background-color: #0056b3;
+        padding: 10px;
+        }
+        .footer .footer-logo {
+        margin-top: -500px;
+        }
+
+
         footer {
             margin: 20px;
             text-align: center;
             color: #333;
         }
+        .footer-logo {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: -80px auto 0 auto;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
-    <h1> {{ gettext('NLP strategies to handle disinformation') }} </h1>
-        <a href="{{ url_for('language') }}"> {{ _('Change Language') }} </a>
-        <p>{{ gettext('The increasing prevalence of misinformation and disinformation represents a serious threat to our democratic society. Spread by political lobby groups or companies to manipulate public discourse, it can be hard for users to determine whether the information at hand is true or false. Disinformation is also prevalent in scientific settings and can therefore have a direct impact on scientists’ work. <b>Experience different methods to explore a questionable texts passage.</b> ') }}  </p>
-        <p>{{ gettext('Disinformation is characterized by the <b>1. Accuracy of information</b> and by the <b>2. Intention to spread misinformation</b>. Their intention is driven by the pursuit of money and influence aiming to discriminate other competitors.') }} </p>
-    <div class="container">
-    <div class="form-section">
-        <h3>{{ _('1. Wikifier') }}</h3>
-        <p>{{ _('Currently it is not easy to validate facts in full texts automatically. However, we can use <a href="https://en.wikipedia.org/wiki/Named-entity_recognition">Named-entity Recognition</a> (NER) to identify crucial terms and use the <i>entity linking service</i> <b>Wikifier</b> to retrieve <b>Wikidata</b> and <b>Wikipedia</b> records in order to verify the proposed information.')|safe }}</p>
-        <p>{{ _('Try to annotate the questionable text using <b>Wikifier</b> and get more information on the <a href="https://www.wikifier.org/">Wikifier</a> was implemented by Janez Brank.')|safe }}</p>
-        <p>{{ _('Use <b>Wikifier</b> for additional information by Wikipedia or Wikidata. The text is cut off after 1000 characters.')|safe }}</p>
-        <form action="/" method="POST">
-            <textarea name="user_text_A" rows="10" cols="50" placeholder="Enter your text here...">{{ user_text_A }}</textarea><br>
-            <button type="submit">{{ _('Submit') }}</button>
-            <button class="clear-button" type="button" data-target="user_text_A">{{ _('Clear') }}</button>
-        </form>
-        <h3>{{ _('Response:') }}</h3>
-        <pre>{{ response_1 }}</pre>
-    </div>
-</div>
+    <h1> {{ _('NLP strategies to handle disinformation') }} </h1>
+         <!-- <a href="{{ url_for('language') }}"> {{ _('Change Language') }} </a> -->
+        <p>{{ _('The growing prevalence of misinformation and disinformation poses a serious threat to our democratic society. Often spread by political lobby groups or corporations to manipulate public discourse, it can be difficult for individuals to determine whether the information they encounter is true or false.
+    Disinformation also occurs in scientific contexts, where it can directly impact the work of researchers. Explore different methods for analyzing a potentially misleading text passage.') }}</p>
+        <p>{{ _('Disinformation is defined by two key factors: ')}}  <b>{{ _('The intention to mislead') }}</b> {{ _(' and ') }}<b>{{ _('The inaccuracy of the information') }}</b>.
+        The intention is often driven by the pursuit of profit or influence, with the goal of discrediting competitors. With th Fur shades of Life Sciences Intention Classifier we explore if language models can learn these intentions in text genres.  </p>
 
-<div class="form-section">
-    <h3>{{ _('2. Four Shades of Life Sciences Intention Classifier') }}</h3>
-    <p>{{ _('The hypothesis of project AQUAS is that the goals for spreading disinformation (attention, money, influence for political claims) shape syntax and semantic of texts. Applying machine learning techniques, a language model can learn the characteristics of texts, specific terms and language styles. In order to train a language model, we compiled a dataset on life science documents related to the four categories ("four shades of Life sciences"):')|safe }}</p>
-    <ol>
-        <li>{{ _('Scientific text style') }}</li>
-        <li>{{ _('Vernacular scientific text style') }}</li>
-        <li>{{ _('Disinformative text style') }}</li>
-        <li>{{ _('Alternative scientific text style') }}</li>
-    </ol>
-    <p>{{ _('Based on this data set several models had been fine tuned to classify similar language styles. You can choose between standard <a href="https://en.wikipedia.org/wiki/Bag-of-words_model">Bag of Words</a> methods, such as <a href="https://en.wikipedia.org/wiki/Random_forest">Random Forest</a>, <a href="https://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Machine</a>, <a href="https://en.wikipedia.org/wiki/Logistic_regression">Logistic Regression</a>, and <a href="https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)">Transformer</a> language models, such as Bert, Scibert, and Specter.')|safe }}</p>
 
-    <form action="/" method="POST">
-        <textarea name="user_text_B" rows="10" cols="50" placeholder="Enter your text here...">{{ user_text_B }}</textarea><br>
-        <label>
-            <input type="radio" name="option" value="option_1"> Random Forest Classifier
-        </label>
-        <label>
-            <input type="radio" name="option" value="option_2"> Support Vector Machine
-        </label>
-        <label>
-            <input type="radio" name="option" value="option_3"> Logistic Regression
-        </label>
-        <label>
-            <input type="radio" name="option" value="option_4"> Fine tuned Bert-base uncased model
-        </label>
-        <label>
-            <input type="radio" name="option" value="option_5"> Fine tuned SciBert model
-        </label>
-        <label>
-            <input type="radio" name="option" value="option_6"> Fine tuned Specter model
-        </label><br>
-        <button type="submit">Submit</button>
-        <button class="clear-button" type="button" data-target="user_text_B">Clear</button>
-    </form>
-</div>
+    <div class="chart-container chart-container-1">
+            <div id="chart-container-1">
+               <div class="form-section">
+                    <h3>{{ _('Four Shades of Life Sciences Intention Classifier') }}</h3>
+                    <p>{{ _('The central hypothesis of Project AQUAS is that the motives behind disinformation—such as gaining attention, financial profit, or political influence—shape both the syntax and semantics of the texts used to spread it.') }}</p>
+                    <p>{{ _('By applying machine learning techniques, a language model can be trained to recognize the distinctive features of such texts, including specific terminology and stylistic patterns. To enable this, we have compiled a dataset of life science documents categorized into four groups, referred to as the "four shades of life sciences":') }}</p>
+                    <ol>
+                        <li>{{ _('Scientific text style') }}</li>
+                        <li>{{ _('Vernacular text style') }}</li>
+                        <li>{{ _('Disinformative text style') }}</li>
+                        <li>{{ _('Alternative scientific text style') }}</li>
+                    </ol>
+                    <p>{{ _('Based on this dataset, several models have been fine-tuned to classify similar language styles.') }}</p>
+                    <p>{{ _('You can choose between traditional <a href="https://en.wikipedia.org/wiki/Bag-of-words_model">Bag of Words</a> methods—such as <a href="https://en.wikipedia.org/wiki/Random_forest">Random Forest</a>, <a href="https://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Machine</a>, and <a href="https://en.wikipedia.org/wiki/Logistic_regression">Logistic Regression</a> —or advanced <a href="https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)">transformer</a>-based language models, including BERT, BioBert, and SPECTER.')|safe }}</p>
+                    <form action="/" method="POST">
+                        <textarea name="user_text_B" rows="10" cols="50" placeholder="Enter your text here...">{{ user_text_B }}</textarea><br>
+                        <label><input type="radio" name="option" value="option_1" checked> Random Forest Classifier</label>
+                        <label><input type="radio" name="option" value="option_2"> Support Vector Machine</label>
+                        <label><input type="radio" name="option" value="option_3"> Logistic Regression</label>
+                        <label><input type="radio" name="option" value="option_4"> Fine tuned Bert-base uncased model</label>
+                        <label><input type="radio" name="option" value="option_5"> Fine tuned BioBert model</label><br>
+                        <label><input type="radio" name="option" value="option_6"> Fine tuned SPECTER model</label><br>
+                        <button type="submit">Submit</button>
+                        <button class="clear-button" type="button" data-target="user_text_B">Clear</button>
+                    </form>
+                        <h3>{{ _('Response:') }}</h3>
+                        <pre>{{ response_2 }}</pre>
+                         <p id="predictions-display"></p>
+                    <canvas id="predictionsChart1" width="400" height="200" style="display: none;"></canvas>
+                    <canvas id="predictionsChart2" width="400" height="200" style="display: none;"></canvas>
+                </div>
+            </div>
 
         <script>
-        // Wait until the DOM is fully loaded before attaching event listeners
-            document.addEventListener('DOMContentLoaded', () => {
-            // Attach event listeners to all "Clear" buttons
-            const clearButtons = document.querySelectorAll('.clear-button');
-            clearButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetName = button.getAttribute('data-target');
-                    const targetTextarea = document.querySelector(`textarea[name="${targetName}"]`);
-                    if (targetTextarea) {
-                        targetTextarea.value = '';  // Clear the content of the associated textarea
-                    }
-                });
-            });
-        });
-            <script>
-    const num_predictions = {{ num_predictions|default([])|tojson }};
-    console.log("num_predictions:", num_predictions);
+document.addEventListener('DOMContentLoaded', () => {
+    const predictions_1 = {{ predictions_1|tojson }};
+    const predictions_2 = {{ predictions_2|tojson }};
 
+    const canvas1 = document.getElementById('predictionsChart1');
+    const canvas2 = document.getElementById('predictionsChart2');
 
-        </script>
+    if (!canvas1 || !canvas2) {
+        console.warn("Missing canvas elements");
+        return;
+    }
 
-  <h3> {{ _('Response:') }}</h3>
-            <p> {{ _('The model predicted class...') }} </p>
-            <div id="chart-container-3">
-             <canvas id="predictionsChart"></canvas>
-             <p id="predictions-display"></p>
+    const ctx1 = canvas1.getContext('2d');
+    const ctx2 = canvas2.getContext('2d');
 
-             <script>
+    const labels = [
+        'Scientific text style',
+        'Vernacular text style',
+        'Disinformative text style',
+        'Alternative scientific text style'
+    ];
 
+    const config1 = {
+        type: 'bar',
 
-            if (num_predictions && num_predictions.length > 0) {
-            document.getElementById('predictions-display').innerHTML =     '...<i>scientific text style</i> with probability: ' + (num_predictions[0]*100).toFixed(2) +'%' +'<br>' +
-            '...<i>popular scientific text style</i> with probability: ' + (num_predictions[1]*100).toFixed(2)+"%" + '<br>' +     '...<i>disinformative text style</i> with probability: ' + (num_predictions[2]*100).toFixed(2)+"%" + '<br>' +
-            '...<i>alternative scientific text style</i> with probability : ' + (num_predictions[3]*100).toFixed(2)+"%";
-        } else {
-            document.getElementById('predictions-display').textContent = "{{ _('No predictions available.') }}";
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Bag of Words Predictions',
+                data: predictions_1,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: { y: { beginAtZero: true } }
         }
-             </script>
-            </div>
-            <div id="chart-container-1">
-                <canvas id="predictionsChart1"></canvas>
-            </div>
-            <div id="chart-container-2">
-                <canvas id="predictionsChart2"></canvas>
-            </div>
+    };
 
+    const config2 = {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Transformer-based Predictions',
+                data: predictions_2,
+                backgroundColor: [
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: { y: { beginAtZero: true } }
+        }
+    };
+
+    // Render the appropriate chart
+    if (Array.isArray(predictions_1) && predictions_1.length > 0) {
+        new Chart(ctx1, config1);
+        canvas1.style.display = 'block';
+        canvas2.style.display = 'none';
+    } else if (Array.isArray(predictions_2) && predictions_2.length > 0) {
+        new Chart(ctx2, config2);
+        canvas2.style.display = 'block';
+        canvas1.style.display = 'none';
+    } else {
+        canvas1.style.display = 'none';
+        canvas2.style.display = 'none';
+    }
+});
+</script>
+
+
+
+
+        <!-- Wikifier Tool -->
+
+        <div id="chart-container chart-container-2">
+            <div class="form-section">
+                <h3>{{ _('Wikifier') }}</h3>
+                <p>{{ _('Currently, automatically validating facts in full texts remains a challenging task.') }}</p>
+                <p>{{ _('However,') }} <a href="https://en.wikipedia.org/wiki/Named-entity_recognition">Named-entity Recognition</a> {{ _('(NER) can be used to identify key terms, which can then be linked to external knowledge bases.') }}</p>
+                <p>{{ _('By using the entity linking service Wikifier, we can retrieve corresponding records from Wikidata and Wikipedia to help verify the information presented.') }}</p>
+                <p> {{ _('Try annotating the questionable text using') }} <a href="https://www.wikifier.org/">Wikifier</a> {{ _('to retrieve relevant knowledge base entries.') }}</p>
+                <p>{{ _('For more information, note that Wikifier was developed by Janez Brank, who implemented it as a tool for linking text entities to Wikipedia and Wikidata.') }}</p>
+                <p>{{ _('Use Wikifier to retrieve additional information from Wikipedia and Wikidata.') }}</p>
+                <p>{{ _('Please note that the annotated text is truncated after 1,000 characters.') }}</p>
+                <form action="/" method="POST">
+                    <textarea name="user_text_A" rows="10" cols="50" placeholder="Enter your text here...">{{ user_text_A }}</textarea><br>
+                    <button type="submit">{{ _('Submit') }}</button>
+                    <button class="clear-button" type="button" data-target="user_text_A">{{ _('Clear') }}</button>
+                </form>
+                <h3>{{ _('Response:')|safe }}</h3>
+                <pre>{{ response_1 }}</pre>
+            </div>
         </div>
     </div>
 
+    <!--
+            <div id="chart-container-3 chart-container-3">
+            <div class="form-section">
+                <p id="predictions-display"></p>
 
-    <div class="footer">
-        <h2> {{ _('On the project AQUAS') }}</h2>
-        <p> {{ _('The project "Automatic Quality Assessment: NLP methods for semantic mapping of life-science texts" (AQUAS) is funded by German Research Foundation. The project runs from November 2022 till November 2025. Please notice the project website:') }} <a href='https://www.zbmed.de/en/research/current-projects/aquas'>AQUAS at ZBMED</a>  </p>
-        <p style="margin: 0; padding: 0;"> <b>Contact:</b> Eva Seidlmayer, Dr. phil., M.LIS<br> Data Sciences and Services, Research Fellow<br> ORCID: 0000-0001-7258-0532<br>
-        Mastodon: @eta_kivilih | Bluesky: @etakivilih.bsky.social<br> ZB MED – Information Centre for Life Sciences<br> Gleueler Straße 60<br>
-        50931 Cologne <br> Germany<br> <a href ='https://www.zbmed.de'>www.zbmed.de</a><br> INFORMATION. KNOWLEDGE. LIFE. </p>
-        <img src="{{ url_for('static', filename='ZBMED17_e_rgb_cl-2.svg') }}"
-        alt="Logo of ZB MED https://www.zbmed.de/en/"
-         style="max-width:100%;height:auto;display: block; margin: 0 auto; margin-top: -50px;">
-    </div>
+                <h3> {{ _('Response:') }}</h3>
+                <p>{{ _('The model predicted class...') }}</p>
+            </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const predictions_1 = {{ predictions_1|tojson }};
-            const predictions_2 = {{ predictions_2|tojson }};
-            const num_predictions = {{ num_predictions|tojson | default("[]", true )}};
+    -->
 
-            const ctx1 = document.getElementById('predictionsChart1').getContext('2d');
-            const ctx2 = document.getElementById('predictionsChart2').getContext('2d');
-            const labels = ['Scientific text style', 'Vernacular scientitfic text style', 'Disinformative text style', 'Alternative scientific text style'];
+                        <div class="footer">
+            <h2> {{ _('On the project AQUAS') }}</h2>
+            <p> {{ _('The project "Automatic Quality Assessment: NLP methods for semantic mapping of life-science texts" (AQUAS) is funded by German Research Foundation. The project runs from November 2022 till November 2025. Please notice the project website:') }} <a href='https://www.zbmed.de/en/research/current-projects/aquas'>AQUAS at ZBMED</a>. </p>
+            <p style="margin: 0; padding: 0;"> <b>Contact:</b> Eva Seidlmayer, Dr. phil., M.LIS<br> Data Sciences and Services, Research Fellow<br> ORCID: 0000-0001-7258-0532<br>
+            Mastodon: @eta_kivilih@eldritch.cafe | Bluesky: @etakivilih.bsky.social<br> ZB MED – Information Centre for Life Sciences<br> Gleueler Straße 60<br>
+            50931 Cologne <br> Germany<br> <a href ='https://www.zbmed.de'>www.zbmed.de</a><br> INFORMATION. KNOWLEDGE. LIFE. </p>
 
-             // Configuration for the first chart
-        const config1 = {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Bag of words Predictions',
-                    data: predictions_1,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#000000',
-                            boxWidth: 20,
-                            boxHeight: 20,
-                            usePointStyle: true,
-                            pointStyle: 'rectRounded',
-                            padding: 10
-                        }
-                    }
-                }
-            }
-        };
-
-        // Configuration for the second chart
-        const config2 = {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Predictions by fine tuned machine learning model',
-                    data: predictions_2,
-                    backgroundColor: [
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(54, 162, 235, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(54, 162, 235, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#000000',
-                            boxWidth: 20,
-                            boxHeight: 20,
-                            usePointStyle: true,
-                            pointStyle: 'rectRounded',
-                            padding: 10
-                        }
-                    }
-                }
-            }
-        };
-
-      // Conditionally render the charts based on the availability of predictions_1 or predictions_2
-        if (Array.isArray(predictions_1) && predictions_1.length > 0) {
-            // Display the first chart if predictions_1 is available
-            new Chart(ctx1, config1);
-            ctx1.parentElement.style.display = 'block';  // Show first chart container
-            ctx2.parentElement.style.display = 'none';  // Hide second chart container
-        } else if (Array.isArray(predictions_2) && predictions_2.length > 0) {
-            // Display the second chart if predictions_2 is available
-            new Chart(ctx2, config2);
-            ctx1.parentElement.style.display = 'none';  // Hide first chart container
-            ctx2.parentElement.style.display = 'block';  // Show second chart container
-        } else {
-            // If neither predictions_1 nor predictions_2 are available, hide both chart containers
-            ctx1.parentElement.style.display = 'none';
-            ctx2.parentElement.style.display = 'none';
-        }
-    });
-    </script>
-
-
-
-
-
+            <img src="{{ url_for('static', filename='ZBMED17_e_rgb_cl-2.svg') }}"
+            alt="Logo of ZB MED https://www.zbmed.de/en/"
+                 class="footer-logo"
+                 style="max-width:100%;height:auto;display: block; ">
+        </div>
 </body>
 </html>

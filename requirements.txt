@@ -9,3 +9,4 @@ quart_babel
 uvicorn
 quart_session
 redis
+dotenv

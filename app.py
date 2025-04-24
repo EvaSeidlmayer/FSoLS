@@ -16,10 +16,12 @@ import torch
 import aiohttp
 from quart_babel import Babel, _
 from quart_session import Session
+from quart_session.sessions import RedisSessionInterface
 import os
 import redis.asyncio as redis
 import logging
 from dotenv import load_dotenv
+import uuid
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -34,18 +36,23 @@ app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_USE_SIGNER'] = True
 app.config['SESSION_KEY_PREFIX'] = 'session:'
 app.config['SESSION_REDIS'] = redis.Redis(host='localhost', port=6379, db=0)
+app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+app.config['BABEL_SUPPORTED_LOCALES'] = ['en', 'de']
+
+
 
 if os.path.exists(".env"):
     load_dotenv()
 
+@app.before_serving
+async def setup():
+    app.jinja_env.globals.update(_=_)
 
 # Read environment variables
 env = os.getenv("APP_ENV", "development")
 path = os.getenv("APP_DATA_PATH", "./static" if env == "development" else "/vol")
 
 print(f"Running in {env} mode. Data path: {path}")
-
-# Print the environment variables for debugging purposes
 print(f"APP_ENV: {os.getenv('APP_ENV')}")
 print(f"APP_DATA_PATH: {os.getenv('APP_DATA_PATH')}")
 
@@ -55,6 +62,34 @@ Session(app)
 async def startup():
     await init_redis_pool()
 
+_original_save_session = RedisSessionInterface.save_session
+
+async def patched_save_session(self, app, session, response):
+    session_id = session.sid
+    if isinstance(session_id, bytes):
+        session_id = session_id.decode('utf-8')
+
+    # call response.set_cookie manually with the corrected session_id
+    response.set_cookie(
+        self.session_cookie_name,
+        session_id,
+        max_age=self.permanent_session_lifetime.total_seconds() if session.permanent else None,
+        expires=None,
+        path=self.get_cookie_path(app),
+        domain=self.get_cookie_domain(app),
+        secure=app.config.get("SESSION_COOKIE_SECURE", False),
+        httponly=app.config.get("SESSION_COOKIE_HTTPONLY", True),
+        samesite=app.config.get("SESSION_COOKIE_SAMESITE", "Lax"),
+    )
+
+    await self.store_session(app, session.sid, session)
+
+@app.before_request
+async def debug_session():
+    sid = getattr(session, 'sid', None)
+    if isinstance(sid, bytes):
+        sid = sid.decode('utf-8')
+    print(f"[SESSION DEBUG] Session ID: {sid}")
 
 # languages
 LANGUAGES = ['en', 'de']
@@ -111,24 +146,27 @@ async def log_language():
     current_language = session.get('language', 'default not set')
     logger.info(f"Current language in session: {current_language}")
 
+@app.before_request
+async def log_language_id():
+    session_id = session.get('session_id')
+    if isinstance(session_id, bytes):
+        try:
+            session['session_id'] = session_id.decode('utf-8')
+        except UnicodeDecodeError:
+            session['session_id'] = session_id.hex()
+    print(f"Session ID: {session.get('session_id')}, Type: {type(session.get('session_id'))}")
 
 @app.route('/set_language/<lang>')
 async def set_language(lang):
-    print(f"Session language: {session.get('language')}")
-    try:
-        logger.info(f'Attempting to set language to: {lang}')
-        if lang in LANGUAGES:
-            session['language'] = lang
-            logger.info(f'Language set to: {lang}')
-            print(f"Session language: {session.get('language')}")
-            return redirect(url_for('home', _external=True, lang=lang))
-        else:
-            logger.warning(f'Invalid language: {lang}')
-            return redirect(url_for('home'))
-    except Exception as e:
-        logger.error(f'Error setting language: {e}')
-        print('language:', lang)
-        return "Internal Server Error", 500
+    print(f"Setting language to: {lang}")
+    if lang not in app.config['BABEL_SUPPORTED_LOCALES']:
+        print(f"Unsupported language: {lang}")
+        return 'Unsupported language', 400
+    session['language'] = lang
+    print(f"Language set to: {session['language']}")
+    return redirect(request.referrer or url_for('index'))
+
+
 
 async def Call_AQUAS_RandomForest(text, classifier, vectorizer):
     text_list = [text]
@@ -242,9 +280,13 @@ async def input():
                 response_2 = json.dumps(results, indent=2)
             elif option == 'option_4':
                 results = await Call_AQUAS_Bert(user_text_B, Bertbase_model, bert_tokenizer)
-                print(results)
+                print('typ',type(results))
                 predictions_2 = results['Probabilities'][0]
-                response_2 = json.dumps(results, indent=2)
+                result = ('Probability for scientific text class: ', results['Probabilities'][0][0],
+                          'Probability for vernacular text class: ', results['Probabilities'][0][1],
+                          'Probability for disinformative text class: ', results['Probabilities'][0][2],
+                          'Probability for alternative scientific text class: ', results['Probabilities'][0][3])
+                response_2 = json.dumps(result, indent=2)
             elif option == 'option_5':
                 results = await Call_AQUAS_Bert(user_text_B, Scibert_model, bert_tokenizer)
                 predictions_2 = results['Probabilities'][0]
@@ -253,12 +295,9 @@ async def input():
                 results = await Call_AQUAS_Bert(user_text_B, SPECTER_model, bert_tokenizer)
                 predictions_2 = results['Probabilities'][0]
                 response_2 = json.dumps(results, indent=2)
-        if predictions_1:
-            num_predictions = predictions_1
-        elif predictions_2:
-            num_predictions = predictions_2
-        else:
-            num_predictions = []
+
+        num_predictions = predictions_1 or predictions_2 or []
+        print("num_predictions:", num_predictions)  # Debugging statement
     return await render_template('index.html', user_text_A=user_text_A, user_text_B=user_text_B,
                                         response_1=response_1, response_2=response_2,
                                         predictions_1=predictions_1, predictions_2=predictions_2,

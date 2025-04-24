@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-03-01 19:40+0100\n"
-"PO-Revision-Date: 2025-03-01 17:28+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2025-04-23 09:51+0200\n"
+"PO-Revision-Date: 2025-04-23 12:46+0200\n"
+"Last-Translator: Eva Seidlmayer <seidlmayer@zbmed.de>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -18,166 +18,203 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: app.py:37
+#: app.py:101
 msgid "Welcome"
-msgstr "Wilkommen"
+msgstr "Willkommen"
 
-#: app.py:136
+#: app.py:212
 msgid "Please submit text for Wikifier Annotation"
 msgstr "Bitte geben Sie einen Text für den Wikifier Annotator ein."
 
-#: app.py:137
+#: app.py:213
 msgid "Please submit text for text style classification"
 msgstr "Bitte geben Sie einen Text für den Text-Stil-Klassifikator ein."
 
-#: app.py:150
+#: app.py:226
 msgid "option"
 msgstr "Option"
 
-#: templates/index.html:6 templates/index.html:77
+#: templates/index.html:6 templates/index.html:117
 msgid "NLP strategies to handle disinformation"
 msgstr "NLP Strategien für den Umgang mit Desinformationen"
 
-#: templates/index.html:78
+#: templates/index.html:118
 msgid "Change Language"
 msgstr "Sprache ändern"
 
-#: templates/index.html:79
+#: templates/index.html:119
 msgid ""
-"The increasing prevalence of misinformation and disinformation represents"
-" a serious threat to our democratic society. Spread by political lobby "
-"groups or companies to manipulate public discourse, it can be hard for "
-"users to determine whether the information at hand is true or false. "
-"Disinformation is also prevalent in scientific settings and can therefore"
-" have a direct impact on scientists’ work. <b>Experience different "
-"methods to explore a questionable texts passage.</b> "
-msgstr "Die Zunahme von Falsch- und Desinformationen stellt ein gravierendes Problem für unsere demokratischen Gesellschaften dar. Verbreitet werden sie von politischen Lobbygruppen "
-"oder Unternehmen, um den öffentlichen Diskurs zu beeinflussen. Für Nutzer:innen kann er schwieirig sein, zu bewerten, ob eine Information falsch oder richtig ist oder zu manipulativen Zwecken verbreitet wird."
+"The growing prevalence of misinformation and disinformation poses a "
+"serious threat to our democratic society. Often spread by political lobby"
+" groups or corporations to manipulate public discourse, it can be "
+"difficult for individuals to determine whether the information they "
+"encounter is true or false.\n"
+"    Disinformation also occurs in scientific contexts, where it can "
+"directly impact the work of researchers. Explore different methods for "
+"analyzing a potentially misleading text passage."
+msgstr "Die Zunahme von Falsch- und Desinformationen stellt ein gravierendes Problem für unsere demokratische Gesellschaft dar. Verbreitet werden sie von politischen Lobbygruppen "
+"oder Unternehmen, um den öffentlichen Diskurs zu beeinflussen. Für Nutzer:innen kann er schwierig sein, zu bewerten, ob eine Information falsch oder richtig ist oder zu manipulativen Zwecken verbreitet wurde."
 "Auch in wissenschaftlichen Kontexten finden sich desinformierenden Inhalte, die auch die wissenschaftliche Erkenntnisfindung Einfluß nehmen können."
 "Hier können Sie unterschiedliche Sprachmodelle basierend auf Methoden des Maschinellen Lernens ausprobieren und verschiedene Inhalte und Sprachstile überprüfen."
 
+#: templates/index.html:121
+msgid "Disinformation is defined by two key factors: "
+msgstr "Disinformationen zeichnen sich einerseits durch"
 
-#: templates/index.html:80
+#: templates/index.html:121
+msgid "The inaccuracy of the information"
+msgstr "1. Falschheit der Information aus"
+
+
+#: templates/index.html:121
+msgid " and "
+msgstr " und durch die "
+
+#: templates/index.html:121
+msgid "The intention to mislead"
+msgstr "Intention, falsche Informationen zu verbreiten."
+
+
+#: templates/index.html:127
+msgid "Four Shades of Life Sciences Intention Classifier"
+msgstr "Four Shades of Life Sciences Textstil-Klassifikator"
+
+#: templates/index.html:128
 msgid ""
-"Disinformation is characterized by the <b>1. Accuracy of information</b> "
-"and by the <b>2. Intention to spread misinformation</b>. Their intention "
-"is driven by the pursuit of money and influence aiming to discriminate "
-"other competitors."
-msgstr "Disinformationen zeichenn sich einerseits durch 1. Falschheit der Information aus und 2. durch die Intention, faslche informationen zu verbreiten."
-"Hinter der Motivatione steht oft das Anliegen Geld zu verdienen, Aufmerksamkeit zu geneieren oder Mitbewerber zu diskreditieren. Diese Motivationen schlagen sich in der Sprache nieder und könen von MSprachmodellen gelernt werden."
-
-#: templates/index.html:83
-msgid "1. Wikifier"
-msgstr "Wikifier"
-
-#: templates/index.html:84
-msgid ""
-"Currently it is not easy to validate facts in full texts automatically. "
-"However, we can use <a href=\"https://en.wikipedia.org/wiki/Named-"
-"entity_recognition\">Named-entity Recognition</a> (NER) to identify "
-"crucial terms and use the <i>entity linking service</i> <b>Wikifier</b> "
-"to retrieve <b>Wikidata</b> and <b>Wikipedia</b> records in order to "
-"verify the proposed information."
-msgstr "Derzeit ist es nicht leicht, Aussagen aus Volltexten automatisiert auf ihren Wahrheitsgehalt hin zu verifizieren (Faktencheck). Argumentationen in langen Texten sind oft komplex und problematische Aussagen ergebnen sich oft erst aus dem Kontext, in den sie gestellt sind. Bei einem automatisierten Faktencheck werden in der Regel, einzelne Aussagen aus eiem Text gerausgelöst und gegen einen Referenzkorpus verglichen, der zum Goldstandard für Wahrheit erklärt wird."
-
-#: templates/index.html:85
-msgid ""
-"Try to annotate the questionable text using <b>Wikifier</b> and get more "
-"information on the <a href=\"https://www.wikifier.org/\">Wikifier</a> was"
-" implemented by Janez Brank."
-msgstr "Lassen Sie einen fragwürdigen Text mit dem Wikifier Annotator mit den entsprechenden Einträgen aus Wikipedia und Wikidata annotieren. Auf diese Weise können Sie selbst viele der Aussagen überpüfen und in ihren Kontext stellen."
-
-#: templates/index.html:86
-msgid ""
-"Use <b>Wikifier</b> for additional information by Wikipedia or Wikidata. "
-"The text is cut off after 1000 characters."
-msgstr "Nach 1000 Zeichen wird der eingegebene Text abgeschnitten. "
-
-#: templates/index.html:89
-msgid "Submit"
-msgstr "Abschicken!"
-
-#: templates/index.html:90
-msgid "Clear"
-msgstr "Löschen!"
-
-#: templates/index.html:92 templates/index.html:150
-msgid "Response:"
-msgstr "Antwort:"
-
-#: templates/index.html:98
-msgid "2. Four Shades of Life Sciences Intention Classifier"
-msgstr " 2. Four Shades of Life Sciences Textstil-Klassifikator"
-
-#: templates/index.html:99
-msgid ""
-"The hypothesis of project AQUAS is that the goals for spreading "
-"disinformation (attention, money, influence for political claims) shape "
-"syntax and semantic of texts. Applying machine learning techniques, a "
-"language model can learn the characteristics of texts, specific terms and"
-" language styles. In order to train a language model, we compiled a "
-"dataset on life science documents related to the four categories (\"four "
-"shades of Life sciences\"):"
-msgstr "Die Hypothese des hier vorgestellten Projektes lautet, dass die verschiedenen Motivationen Desinformationen zu verbreiten"
+"The central hypothesis of Project AQUAS is that the motives behind "
+"disinformation—such as gaining attention, financial profit, or political "
+"influence—shape both the syntax and semantics of the texts used to spread"
+" it."
+msgstr "Die Hypothese des hier vorgestellten Tools lautet, dass die verschiedenen Motivationen Desinformationen zu verbreiten"
 "(Aufmerksamkeit, Geld, Einfluss für politische Positionen) die Syntax und Semantik eines Textes prägen."
-"Modelle des Maschinellen Lernens könenn diese Sprachstile erlernen. Um enstprechenden Modelle zu trainieren, wurde ein Datensatz aus vier Textarten zusammengestellt, den vier Schattierungen der Lebenswissenschaften:"
+"Modelle des Maschinellen Lernens könenn diese Sprachstile erlernen. Um enstprechende Modelle zu trainieren, wurde ein Datensatz aus vier Textarten zusammengestellt, den vier Schattierungen der Lebenswissenschaften (Four Shades of Life Sciences):"
 
-#: templates/index.html:101
+#: templates/index.html:129
+msgid ""
+"By applying machine learning techniques, a language model can be trained "
+"to recognize the distinctive features of such texts, including specific "
+"terminology and stylistic patterns. To enable this, we have compiled a "
+"dataset of life science documents categorized into four groups, referred "
+"to as the \"four shades of life sciences\":"
+msgstr "Modelle des Maschinellen Lernens könenn diese Sprachstile erlernen. Um enstprechende Modelle zu trainieren, wurde ein Datensatz aus vier Textarten zusammengestellt, den vier Schattierungen der Lebenswissenschaften (Four Shades of Life Sciences):"
+
+
+#: templates/index.html:131
 msgid "Scientific text style"
 msgstr "Wissenschaftlicher Textstil"
 
-#: templates/index.html:102
-msgid "Vernacular scientific text style"
+#: templates/index.html:132
+msgid "Vernacular text style"
 msgstr "Populärwissenschaftlicher Textstil"
 
-#: templates/index.html:103
+#: templates/index.html:133
 msgid "Disinformative text style"
 msgstr "Desinformativer Textstil"
 
-#: templates/index.html:104
+#: templates/index.html:134
 msgid "Alternative scientific text style"
 msgstr "Alternativwissenschaftlicher Textstil"
 
-#: templates/index.html:106
+#: templates/index.html:136
 msgid ""
-"Based on this data set several models had been fine tuned to classify "
-"similar language styles. You can choose between standard <a "
-"href=\"https://en.wikipedia.org/wiki/Bag-of-words_model\">Bag of "
-"Words</a> methods, such as <a "
-"href=\"https://en.wikipedia.org/wiki/Random_forest\">Random Forest</a>, "
-"<a href=\"https://en.wikipedia.org/wiki/Support_vector_machine\">Support "
-"Vector Machine</a>, <a "
-"href=\"https://en.wikipedia.org/wiki/Logistic_regression\">Logistic "
-"Regression</a>, and <a "
-"href=\"https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)\">Transformer</a>"
-" language models, such as Bert, Scibert, and Specter."
+"Based on this dataset, several models have been fine-tuned to classify "
+"similar language styles."
 msgstr "Basierend auf den zusammengestellten Daten wurden mehrere Modelle trainiert, um Ähnlichkeiten im Sprachstil zu erkennen. "
-"Sie können zwischen den folgenden einfachen Modellen wählen <a "
+
+
+#: templates/index.html:137
+msgid ""
+"You can choose between traditional <a "
 "href=\"https://en.wikipedia.org/wiki/Bag-of-words_model\">Bag of "
-"Words</a>, <a "
+"Words</a> methods—such as <a "
 "href=\"https://en.wikipedia.org/wiki/Random_forest\">Random Forest</a>, "
 "<a href=\"https://en.wikipedia.org/wiki/Support_vector_machine\">Support "
-"Vector Machine</a>, <a "
+"Vector Machine</a>, and <a "
 "href=\"https://en.wikipedia.org/wiki/Logistic_regression\">Logistic "
-"Regression</a>, und Large Language Modellen aus der <a "
-"href=\"https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)\">Transformer</a>"
-"-Familie, wie Bert, Scibert und Specter."
+"Regression</a> —or advanced <a "
+"href=\"https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)\">transformer</a>-based"
+" language models, including BERT, and SPECTER."
+msgstr "Sie können zwischen den folgenden einfachen Modellen wählen  "
+"<a href=\"https://en.wikipedia.org/wiki/Bag-of-words_model\">Bag of "
+"Words</a>, "
+"<a href=\"https://en.wikipedia.org/wiki/Random_forest\">Random Forest</a>, "
+"<a href=\"https://en.wikipedia.org/wiki/Support_vector_machine\">Support "
+"Vector Machine</a>, "
+"<a href=\"https://en.wikipedia.org/wiki/Logistic_regression\">Logistic "
+"Regression</a>, und Large Language Modellen aus der  "
+"<a href=\"https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)\">Transformer</a>"
+"-Familie, wie Bert, und Specter."
 
+#: templates/index.html:178
+msgid "Wikifier"
+msgstr "Wikifier"
 
+#: templates/index.html:179
+msgid ""
+"Currently, automatically validating facts in full texts remains a "
+"challenging task."
+msgstr "Derzeit ist es nicht leicht, Aussagen aus Volltexten automatisiert auf ihren Wahrheitsgehalt hin zu verifizieren (Faktencheck)."
 
-#: templates/index.html:151
-msgid "The model predicted class..."
-msgstr "Das Model ordnet den Text der folgenden Klasse zu..."
+#: templates/index.html:180
+msgid "However,"
+msgstr " Named entity recognition"
 
-#: templates/index.html:165
-msgid "No predictions available."
-msgstr "Es ist keine Klassifizierung vorhanden."
+#: templates/index.html:180
+msgid "(NER) can be used to identify key terms, which can then be linked to "
+"external knowledge bases."
+msgstr "Argumentationen in langen Texten sind oft komplex und problematische Aussagen ergeben sich oft erst aus dem Kontext, in dem sie getroffen werden."
 
 #: templates/index.html:181
+msgid "By using the entity linking service Wikifier, we can retrieve "
+"corresponding records from Wikidata and Wikipedia to help verify the "
+"information presented."
+msgstr "Bei einem automatisierten Faktencheck werden in der Regel, einzelne Aussagen aus eiem Text herausgelöst und gegen einen Referenzkorpus verglichen, der zum Goldstandard für Wahrheit erklärt wird."
+
+#: templates/index.html:182
+msgid "Try annotating the questionable text using"
+msgstr "Lassen Sie einen fragwürdigen Text mit dem Wikifier Annotator mit den entsprechenden Einträgen aus Wikipedia und Wikidata annotieren."
+
+#: templates/index.html:182
+msgid "to retrieve relevant knowledge base entries."
+msgstr "Auf diese Weise können Sie selbst viele der Aussagen überpüfen und in ihren Kontext stellen."
+
+#: templates/index.html:183
+msgid "For more information, note that Wikifier was developed by Janez Brank, "
+"who implemented it as a tool for linking text entities to Wikipedia and"
+"Wikidata."
+msgstr "Wikifier wurde von Janez Brank entwickelt."
+
+#: templates/index.html:184
+msgid ""
+"Use Wikifier to retrieve additional information from Wikipedia and "
+"Wikidata."
+msgstr "Mit Wikifier lassen sich zuätzliche Informationen von Wikipedia und Wikidata abrufen."
+
+#: templates/index.html:185
+msgid "Please note that the annotated text is truncated after 1,000 characters."
+msgstr "Nach 1000 Zeichen wird der eingegebene Text abgeschnitten."
+
+#: templates/index.html:188
+msgid "Submit"
+msgstr "Abschicken!"
+
+#: templates/index.html:189
+msgid "Clear"
+msgstr "Löschen!"
+
+#: templates/index.html:191 templates/index.html:201
+msgid "Response:"
+msgstr "Antwort:"
+
+#: templates/index.html:202
+msgid "The model predicted class..."
+msgstr "Das Model ordnet den Text den folgenden Klassen zu..."
+
+#: templates/index.html:208
 msgid "On the project AQUAS"
 msgstr "Über das Projekt AQUAS:"
 
-#: templates/index.html:182
+#: templates/index.html:209
 msgid ""
 "The project \"Automatic Quality Assessment: NLP methods for semantic "
 "mapping of life-science texts\" (AQUAS) is funded by German Research "
@@ -185,3 +222,4 @@ msgid ""
 "Please notice the project website:"
 msgstr "Das Projekt 'Automatic Quality Assessment: NLP-Verfahren zur semantischen Kartierung von lebenswissenschaftlichen Texten' "
 "(AQUAS) wird von der DFG gefördert. Die Projektlaufzeit ist von November 2022 bis November 2025. Besuchen Sie die Projektseite bei ZB MED:"
+
